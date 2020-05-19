@@ -1,6 +1,8 @@
 # easy-mock-docker-server
 
-### updaet config/default.json
+### from https://github.com/easy-mock/easy-mock
+
+### just updaet config/default.json
 
 ```
 "mongodb": "mongodb://mock_mongo/test",
