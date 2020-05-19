@@ -1,0 +1,35 @@
+version: '3'
+services:
+  mock_redis:
+    image: redis
+    container_name: mock_redis
+    #    ports:
+    #      - 6379:6379
+    volumes:
+      - /etc/localtime:/etc/localtime
+    #   - ~/redis.conf:/usr/local/etc/redis/redis.conf
+    # command: redis-server /usr/local/etc/redis/redis.conf
+  mock_mongo:
+    image: mongo
+    container_name: mock_mongo
+    volumes:
+      - /etc/localtime:/etc/localtime
+  mock_app:
+    image: node:9
+    container_name: mock_app
+    ports:
+      - 7300:7300
+    depends_on:
+      - mock_redis
+      - mock_mongo
+    working_dir: /usr/src/app/
+    command: 
+        - /bin/sh
+        - -c
+        - |
+          git clone https://gitee.com/linghaoxinpian/Easy-Mock.git
+          # ...随意添加任意脚本...
+          echo '添加依赖...npm install...'
+          cd Easy-Mock && npm install
+          echo '启动easy mock 服务器...npm run dev...'
+          npm run dev
